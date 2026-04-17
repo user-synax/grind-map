@@ -11,7 +11,7 @@
 
 *A comprehensive learning roadmap tracker with progress tracking and streak management*
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-000000?style=for-the-badge&logo=netlify&logoColor=white)](https://your-site.netlify.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-000000?style=for-the-badge&logo=netlify&logoColor=white)](https://grind-map.netlify.app)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 </div>
@@ -70,21 +70,6 @@
 
 ### Authentication
 - **Clerk** - Complete user authentication
-
----
-
-## 📸 Screenshots
-
-<div align="center">
-  <h3>Dashboard View</h3>
-  <img src="https://via.placeholder.com/800x400/171717/3ecf8e?text=Dashboard+with+Roadmap+Cards" alt="Dashboard" width="800"/>
-  
-  <h3>Roadmap Detail View</h3>
-  <img src="https://via.placeholder.com/800x400/171717/8b5cf6?text=Roadmap+with+Topic+Tracking" alt="Roadmap Detail" width="800"/>
-  
-  <h3>Sign In Page</h3>
-  <img src="https://via.placeholder.com/800x400/171717/ffffff?text=Sign+In+Page" alt="Sign In" width="800"/>
-</div>
 
 ---
 
@@ -232,7 +217,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Vercel Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/your-repo)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/https://github.com/user-synax/grind-map)
 
 ---
 

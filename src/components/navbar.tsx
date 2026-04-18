@@ -21,11 +21,6 @@ export function Navbar() {
             <span className="text-xl font-semibold text-[#fafafa]">GrindMap</span>
           </Link>
           <div className="flex items-center space-x-4">
-            <Link href="/dashboard">
-              <Button variant="ghost" className="text-[#fafafa] hover:text-[#3ecf8e]">
-                Dashboard
-              </Button>
-            </Link>
             <UserButton />
             <SignOutButton>
               <Button variant="ghost" className="text-[#fafafa] hover:text-[#ef4444]">

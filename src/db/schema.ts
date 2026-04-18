@@ -23,6 +23,8 @@ export const topics = pgTable('topics', {
   title: text('title').notNull(),
   description: text('description'),
   orderIndex: integer('orderIndex').notNull(),
+  resourceUrl: text('resourceUrl'),
+  timeToLearnDays: integer('timeToLearnDays'),
   createdAt: timestamp('createdAt').defaultNow(),
 });
 

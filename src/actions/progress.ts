@@ -1,4 +1,5 @@
-import 'server-only';
+'use server';
+
 import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 import { db } from '@/db/index';
@@ -13,12 +14,6 @@ export async function updateTopicStatus(topicId: string, status: string, roadmap
     throw new Error('Unauthorized');
   }
 
-  // Check if progress already exists
-  const existingProgress = await db
-    .select()
-    .from(userProgress)
-    .where(and(eq(userProgress.userId, userId), eq(userProgress.topicId, topicId)));
-
   const updateValues: any = {
     status,
     updatedAt: new Date(),
@@ -28,27 +23,28 @@ export async function updateTopicStatus(topicId: string, status: string, roadmap
     updateValues.lastReviewedAt = new Date();
   }
 
-  if (existingProgress.length > 0) {
-    // Update existing record
-    await db
-      .update(userProgress)
-      .set(updateValues)
-      .where(eq(userProgress.id, existingProgress[0].id));
-  } else {
-    // Insert new record
+  // Use upsert pattern - try insert first, if conflict then update
+  try {
     await db.insert(userProgress).values({
       id: randomUUID(),
       userId,
       topicId,
       ...updateValues,
     });
+  } catch (error) {
+    // If unique constraint violation, update existing record
+    await db
+      .update(userProgress)
+      .set(updateValues)
+      .where(and(eq(userProgress.userId, userId), eq(userProgress.topicId, topicId)));
   }
 
-  // Update streak
-  await updateStreak(userId);
-
+  // Revalidate paths immediately for faster UI feedback
   revalidatePath('/dashboard');
   revalidatePath(`/dashboard/roadmap/${roadmapId}`);
+
+  // Update streak in background (non-blocking)
+  updateStreak(userId).catch(console.error);
 }
 
 async function updateStreak(userId: string) {

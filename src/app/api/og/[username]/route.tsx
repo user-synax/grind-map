@@ -1,12 +1,14 @@
 import { ImageResponse } from 'next/og';
+import { NextRequest } from 'next/server';
 import { db } from '@/db/index';
 import { users, userProgress, streaks } from '@/db/schema';
 import { eq, and, count, sql } from 'drizzle-orm';
 
 export const runtime = 'edge';
 
-export async function GET(request: Request, { params }: { params: { username: string } }) {
-  const user = await db.select().from(users).where(eq(users.username, params.username));
+export async function GET(request: NextRequest, { params }: { params: Promise<{ username: string }> }) {
+  const { username } = await params;
+  const user = await db.select().from(users).where(eq(users.username, username));
 
   if (user.length === 0) {
     return new ImageResponse(
